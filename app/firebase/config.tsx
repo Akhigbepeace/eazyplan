@@ -1,6 +1,6 @@
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { Auth, connectAuthEmulator, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const authDomain = process.env.NEXT_PUBLIC_AUTH_DOMAIN;
@@ -22,6 +22,6 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
 
+const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
 export { app, auth, analytics };
