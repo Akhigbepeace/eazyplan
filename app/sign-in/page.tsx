@@ -30,7 +30,7 @@ const Signin = () => {
       const res = await signInWithEmailAndPassword(email, password);
 
       router.push("/dashboard/loggedin");
-      sessionStorage.setItem("user", "true");
+      // sessionStorage.setItem("user", "true");
       setEmail("");
       setPassword("");
     } catch (error) {
