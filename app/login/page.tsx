@@ -112,7 +112,7 @@ const Login = () => {
       </button>
 
       <div className="mt-[75px]">
-        Don't have an account? <Link href="/sign-up" className="text-red-500 font-bold">Register</Link>
+        Don&apos;t have an account? <Link href="/sign-up" className="text-red-500 font-bold">Register</Link>
       </div>
     </div>
   );

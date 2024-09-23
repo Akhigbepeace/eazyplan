@@ -8,7 +8,7 @@ import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
 
-const Login = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -132,4 +132,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
