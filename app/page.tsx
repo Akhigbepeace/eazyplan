@@ -1,7 +1,8 @@
-"use client";
-
 import React from "react";
+import RootPage from "./components/layouts/root-page";
 
-export default function Home() {
-  return <div>hello</div>;
-}
+const Home = () => {
+  return <RootPage />;
+};
+
+export default Home;
