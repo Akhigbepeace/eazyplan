@@ -10,7 +10,7 @@ const messagingSenderId = process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID;
 const appId = process.env.NEXT_PUBLIC_APP_ID;
 const measurementId = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 
-const firebaseConfig = {
+const firebaseConfig1 = {
   apiKey: apiKey,
   authDomain: authDomain,
   projectId: projectId,
@@ -18,6 +18,16 @@ const firebaseConfig = {
   messagingSenderId: messagingSenderId,
   appId: appId,
   measurementId: measurementId,
+};
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAlpxsSg07dJYBIoMfZUbxo74d2pXs-Mfg",
+  authDomain: "nuclear-test.firebaseapp.com",
+  projectId: "nuclear-test",
+  storageBucket: "nuclear-test.appspot.com",
+  messagingSenderId: "229346895614",
+  appId: "1:229346895614:web:4fbe3d7a47af9edf6467af",
+  measurementId: "G-6ZZZGQ2NFK"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

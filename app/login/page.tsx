@@ -8,7 +8,7 @@ import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
 
-const SignUp = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,24 +50,10 @@ const SignUp = () => {
           height={50}
           alt="EazyPlan Logo"
         />
-        <h2 className="text-2xl font-bold">Create an Account</h2>
+        <h2 className="text-2xl font-bold">Login</h2>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <div className="mb-[24px]">
-          <label htmlFor="username" className="block mb-1">
-            Username
-          </label>
-          <input
-            type="username"
-            id="username"
-            placeholder="Enter username"
-            className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-primary border border-gray-300"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-        </div>
         <div className="mb-[24px]">
           <label htmlFor="email" className="block mb-1">
             Email
@@ -100,7 +86,7 @@ const SignUp = () => {
           type="submit"
           className="w-full bg-primary-text text-white py-2 rounded-md hover:bg-primary hover:text-primary-text transition duration-300"
         >
-          Register
+          Log in
         </button>
       </form>
 
@@ -122,14 +108,14 @@ const SignUp = () => {
             alt="Google Logo"
           />
         </div>
-        <div className="py-2 text-center w-full">Sign up with Google</div>
+        <div className="py-2 text-center w-full">Login with Google</div>
       </button>
 
       <div className="mt-[75px]">
-        Already have an account? <Link href="/login" className="text-red-500 font-bold">Login</Link>
+        Don&apos;t have an account? <Link href="/sign-up" className="text-red-500 font-bold">Register</Link>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;
