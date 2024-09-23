@@ -18,7 +18,7 @@ export default function RootLayout(props: Readonly<RootLayoutProps>) {
 
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-main-bg text-primary-text">{children}</body>
     </html>
   );
 }
