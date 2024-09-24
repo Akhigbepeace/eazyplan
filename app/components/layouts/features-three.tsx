@@ -41,7 +41,7 @@ const FeaturesThree = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-2 rounded-xl p-2 bg-[rgba(163,216,244,0.4)] mt-20 w-fit mx-auto">
+      <div className="flex items-center justify-center gap-2 rounded-xl p-2 bg-[rgba(163,216,244,0.4)] mt-10 w-fit mx-auto">
         <div className="w-[15px] h-[15px] rounded-full bg-[#A3D8F4]" />
         <div className="w-[15px] h-[15px] rounded-full bg-[#A3D8F4]" />
         <div className="w-[35px] h-[15px] rounded-full bg-[#A3D8F4]" />
