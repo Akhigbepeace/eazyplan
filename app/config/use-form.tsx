@@ -3,7 +3,7 @@ import { SyntheticEvent, useState } from "react";
 type Submit = () => void;
 
 export function useForm<T>(defaultValue: T, onSubmit?: Submit) {
-  const [formValues, setFormValues] = useState<any>(defaultValue);
+  const [formValues, setFormValues] = useState<T>(defaultValue);
 
   const handleOnChange = (e: SyntheticEvent) => {
     const { name, value } = e.currentTarget as HTMLInputElement;

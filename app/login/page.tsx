@@ -7,35 +7,26 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
+import { handleSignInWithGoogle } from "../config/sign-in-with-google";
+import { useForm } from "../config/use-form";
+import { defaultUserCredentials } from "../types/auth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState(defaultUserCredentials);
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
 
   const router = useRouter();
 
-  const handleEmailChange = (e: SyntheticEvent) => {
-    const { value } = e.currentTarget as HTMLInputElement;
-    setEmail(value);
-  };
+  const { handleOnChange, formValues, setFormValues } = useForm(userData);
+  const { email, password } = formValues;
 
-  const handlePasswordChange = (e: SyntheticEvent) => {
-    const { value } = e.currentTarget as HTMLInputElement;
-    setPassword(value);
-  };
-
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     try {
       const res = await signInWithEmailAndPassword(email, password);
-
-      router.push("/dashboard/loggedin");
-      // sessionStorage.setItem("user", "true");
-      setEmail("");
-      setPassword("");
+      console.log("Login Res: ", { res });
     } catch (error) {
       console.error(error);
     }
@@ -53,32 +44,35 @@ const Login = () => {
         <h2 className="text-2xl font-bold">Login</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
+      <form onSubmit={handleLogin} className="w-full max-w-sm">
         <div className="mb-[24px]">
           <label htmlFor="email" className="block mb-1">
             Email
           </label>
           <input
+            name="email"
             type="email"
             id="email"
             placeholder="email@myemail.com"
             className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-primary border border-gray-300"
             value={email}
-            onChange={handleEmailChange}
+            onChange={handleOnChange}
             required
           />
         </div>
+
         <div className="mb-[24px]">
           <label htmlFor="password" className="block mb-1">
             Password
           </label>
           <input
+            name="password"
             type="password"
             id="password"
             placeholder="Enter your password"
             className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-primary border border-gray-300"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={handleOnChange}
             required
           />
         </div>
@@ -95,6 +89,7 @@ const Login = () => {
       </div>
 
       <button
+        onClick={handleSignInWithGoogle}
         className={clsx(
           "w-full max-w-sm flex rounded-sm",
           "bg-blue-500 text-white"
@@ -112,7 +107,10 @@ const Login = () => {
       </button>
 
       <div className="mt-[75px]">
-        Don&apos;t have an account? <Link href="/sign-up" className="text-red-500 font-bold">Register</Link>
+        Don&apos;t have an account?{" "}
+        <Link href="/sign-up" className="text-red-500 font-bold">
+          Register
+        </Link>
       </div>
     </div>
   );
