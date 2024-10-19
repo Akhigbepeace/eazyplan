@@ -1,6 +1,6 @@
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const authDomain = process.env.NEXT_PUBLIC_AUTH_DOMAIN;
@@ -10,7 +10,7 @@ const messagingSenderId = process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID;
 const appId = process.env.NEXT_PUBLIC_APP_ID;
 const measurementId = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 
-const firebaseConfig1 = {
+const firebaseConfig = {
   apiKey: apiKey,
   authDomain: authDomain,
   projectId: projectId,
@@ -20,18 +20,30 @@ const firebaseConfig1 = {
   measurementId: measurementId,
 };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAlpxsSg07dJYBIoMfZUbxo74d2pXs-Mfg",
-  authDomain: "nuclear-test.firebaseapp.com",
-  projectId: "nuclear-test",
-  storageBucket: "nuclear-test.appspot.com",
-  messagingSenderId: "229346895614",
-  appId: "1:229346895614:web:4fbe3d7a47af9edf6467af",
-  measurementId: "G-6ZZZGQ2NFK"
+const actionCodeSettings = {
+  // URL you want to redirect back to. The domain (www.example.com) for this
+  // URL must be in the authorized domains list in the Firebase Console.
+  url: "http://localhost:3000/verified",
+  // This must be true.
+  handleCodeInApp: true,
+  iOS: {
+    bundleId: "localhost:3000",
+  },
+  android: {
+    packageName: "localhost:3000",
+    installApp: true,
+    minimumVersion: "12",
+  },
+  dynamicLinkDomain: "eazy-plan-01.firebaseapp.com",
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
+auth.useDeviceLanguage();
+const provider = new GoogleAuthProvider();
+provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
+
 const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
-export { app, auth, analytics };
+export { app, auth, analytics, provider, actionCodeSettings };
