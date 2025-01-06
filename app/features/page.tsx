@@ -15,6 +15,7 @@ const Features = () => {
       showThumbs={false}
       showStatus={false}
       showIndicators={false}
+      showArrows={true}
       interval={4000}
       transitionTime={2000}
     >

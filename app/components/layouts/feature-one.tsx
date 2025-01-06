@@ -3,8 +3,8 @@ import Typography from "../atoms/typography";
 
 const FeatureOne = () => {
   return (
-    <div className="h-screen bg-secondary">
-      <div className="flex flex-col items-center justify-center text-center p-5 bg-secondary h-[80vh]">
+    <div className="h-screen">
+      <div className="flex flex-col items-center justify-center text-center p-5 h-[80vh]">
         <iframe src="https://lottie.host/embed/c045ac14-8322-47cf-b486-81b299b1d4d9/vVvfRGktKg.json"></iframe>
 
         <div className="flex flex-col items-center mt-5 gap-3">

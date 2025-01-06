@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
-import { handleSignInWithGoogle } from "../config/sign-in-with-google";
-import { useForm } from "../config/use-form";
-import { defaultUserCredentials } from "../types/auth";
+import { handleSignInWithGoogle } from "../../config/sign-in-with-google";
+import { useForm } from "../../config/use-form";
+import { defaultUserCredentials } from "../../types/auth";
 
 const Login = () => {
   const [userData, setUserData] = useState(defaultUserCredentials);
@@ -78,18 +78,23 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-primary-text text-white py-2 rounded-md hover:bg-primary hover:text-primary-text transition duration-300"
+          className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary hover:text-primary transition duration-300"
         >
           Log in
         </button>
       </form>
 
-      <div className="w-full border-t border-t-primary-text my-[50px]">
+      <div className="w-full border-t border-t-primary my-[50px]">
         <div className="-mt-[14px] bg-main-bg w-fit px-[10px] mx-auto">OR</div>
       </div>
 
       <button
-        onClick={handleSignInWithGoogle}
+        onClick={() =>
+          handleSignInWithGoogle({
+            router,
+            redirectPath: "/dashboard",
+          })
+        }
         className={clsx(
           "w-full max-w-sm flex rounded-sm",
           "bg-blue-500 text-white"

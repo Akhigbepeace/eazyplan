@@ -23,10 +23,14 @@ const config: Config = {
         montserrat: ["var(--font-montserrat)"],
       },
       colors: {
-        "primary": "#A3D8F4",
-        "primary-text": "#131C25",
-        "main-bg": "#F0F1F6"
-      }
+        primary: "#131C25",
+        secondary: "#A3D8F4",
+        "main-bg": "#F0F1F6",
+        error: "#F8B4B4",
+        darkGreen: "#2F4F4F",
+        darkGray: "#333333",
+        white: "#FFFFFF",
+      },
     },
   },
   plugins: [],

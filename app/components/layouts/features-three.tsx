@@ -1,11 +1,11 @@
 import React from "react";
 import Typography from "../atoms/typography";
 import { FaArrowRight } from "react-icons/fa6";
-import Link from "next/link";
+import Link from "next/link"; 
 
 const FeaturesThree = () => {
   return (
-    <div className="h-screen bg-secondary p-5">
+    <div className="h-screen p-5">
       <Link
         href="/sign-up"
         className="flex items-center justify-end gap-2 underline"
@@ -16,8 +16,9 @@ const FeaturesThree = () => {
 
         <FaArrowRight scale={40} />
       </Link>
-      <div className="flex flex-col items-center justify-center text-center bg-secondary h-[80vh]">
+      <div className="flex flex-col items-center justify-center text-center h-[80vh]">
         <iframe src="https://lottie.host/embed/ba14cb05-bc9e-401d-a8b2-97b3045b3618/DPY8D5mSkf.json"></iframe>
+
         <div className="flex flex-col items-center mt-5 gap-3">
           <div className="whitespace-nowrap"></div>
           <Typography

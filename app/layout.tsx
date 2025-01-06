@@ -32,7 +32,13 @@ export default function RootLayout(props: Readonly<RootLayoutProps>) {
 
   return (
     <html lang="en" className={clsx(lato.variable, montserrat.variable)}>
-      <body>{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+      </head>
+      <body className="bg-main-bg">{children}</body>
     </html>
   );
 }
