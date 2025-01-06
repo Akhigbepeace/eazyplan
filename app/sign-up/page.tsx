@@ -1,22 +1,26 @@
 "use client";
 
 import React, { SyntheticEvent, useState } from "react";
-import { actionCodeSettings, auth, provider } from "../firebase/config";
+import { actionCodeSettings, auth } from "../firebase/config";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
-import { defaultUserCredentials } from "../types/auth";
-import { useForm } from "../config/use-form";
+import { defaultUserCredentials } from "../../types/auth";
+import { useForm } from "../../config/use-form";
+import twilio from "twilio";
 import {
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   sendSignInLinkToEmail,
-  signInWithPopup,
 } from "firebase/auth";
-import Modal from "../components/layouts/modal";
-import { getCustomErrorMessage } from "../config/error-map";
-import { handleSignInWithGoogle } from "../config/sign-in-with-google";
+import { getCustomErrorMessage } from "../../config/error-map";
+import { handleSignInWithGoogle } from "../../config/sign-in-with-google";
+import LoadingModal from "../components/molecules/loading";
+// import sgMail from "@sendgrid/mail";
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const sendgridApiKey = process.env.SENDGRID_API_KEY as string;
 
 const SignUp = () => {
   const [userData, setUserData] = useState(defaultUserCredentials);
@@ -25,43 +29,59 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const { handleOnChange, formValues, setFormValues } = useForm(userData);
-  const { email, password } = formValues;
+  // const client = twilio(accountSid, authToken);
+  // console.log({ twilio });
 
-  const handleSendLinkToEmail = async () => {
-    setLoading(true);
-    try {
-      const res = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      console.log("Email Verification Res:", { res });
-      window.localStorage.setItem("emailForSignIn", email);
-    } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ errorCode, errorMessage });
-    }
-  };
+  const { handleOnChange, formValues, setFormValues } = useForm(userData);
+  const { email, password, confirmPassword, phoneNumber } = formValues;
+
+  // const sendVerification = async () => {
+  //   try {
+  //     sgMail.setApiKey(sendgridApiKey);
+  //     // const message = await client.messages.create({
+  //     //   body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+  //     //   from: "+2349155003700",
+  //     //   to: phoneNumber,
+  //     // });
+  //     // console.log({ message });
+
+  //     const msg = {
+  //       to: email,
+  //       from: "officialeazyplan@gmail.com",
+  //       subject: "Sending with Twilio SendGrid is Fun",
+  //       text: "and easy to do anywhere, even with Node.js",
+  //       html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  //     };
+  //     const emailRes = await sgMail.send(msg);
+  //     console.log({ emailRes });
+  //   } catch (error) {
+  //     console.error("Error sending verification:", error);
+  //   }
+  // };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
+
+    if (password !== confirmPassword) {
+      setErrorMsg("Passwords do not match!");
+      return;
+    }
 
     try {
       setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      // const userCredential = await createUserWithEmailAndPassword(
-      //   auth,
-      //   email,
-      //   password
-      // );
-      // const user = userCredential.user;
-      handleSendLinkToEmail();
-
-      // if (user) {
-      //   console.log(user);
-      //   setSuccessMsg("Kindly check your email for a verification link!");
+      // if (userCredential.user) {
+      //   sendVerification();
       // }
     } catch (error: any) {
-      const customErrorMsg = getCustomErrorMessage(error.code);
-      setErrorMsg(customErrorMsg);
+      setErrorMsg(getCustomErrorMessage(error.code));
     } finally {
       setLoading(false);
     }
@@ -108,6 +128,23 @@ const SignUp = () => {
               required
             />
           </div>
+
+          <div className="mb-[24px]">
+            <label htmlFor="phoneNumber" className="block mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              name="phoneNumber"
+              id="phoneNumber"
+              placeholder="+234 0123456789"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-primary border border-gray-300"
+              value={phoneNumber}
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+
           <div className="mb-[24px]">
             <label htmlFor="password" className="block mb-1">
               Password
@@ -123,22 +160,40 @@ const SignUp = () => {
               required
             />
           </div>
+
+          <div className="mb-[24px]">
+            <label htmlFor="confirmPassword" className="block mb-1">
+              Confirm Password
+            </label>
+            <input
+              name="confirmPassword"
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm your password"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-primary border border-gray-300"
+              value={confirmPassword}
+              onChange={handleOnChange}
+              required
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-primary-text text-white py-2 rounded-md hover:bg-primary hover:text-primary-text transition duration-300"
+            className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-dark transition duration-300"
           >
-            Register
+            {loading ? "Loading..." : "Register"}
           </button>
         </form>
 
-        <div className="w-full border-t border-t-primary-text my-[50px]">
+        <div className="w-full border-t border-t-primary my-[50px]">
           <div className="-mt-[14px] bg-main-bg w-fit px-[10px] mx-auto">
             OR
           </div>
         </div>
 
         <button
-          onClick={handleSignInWithGoogle}
+          onClick={() =>
+            handleSignInWithGoogle({ router, redirectPath: "/onboarding" })
+          }
           className={clsx(
             "w-full max-w-sm flex rounded-sm",
             "bg-blue-500 text-white"
@@ -156,25 +211,14 @@ const SignUp = () => {
         </button>
 
         <div className="mt-[75px]">
-          Already have an account?
+          Already have an account?{" "}
           <Link href="/login" className="text-red-500 font-bold">
             Login
           </Link>
         </div>
       </div>
 
-      {loading && (
-        <Modal>
-          <div className="mx-auto w-[50px] h-[50px] relative">
-            <Image
-              src="/assets/images/logo.png"
-              alt="EazyPlan Logo"
-              fill
-              className="animate-ping"
-            />
-          </div>
-        </Modal>
-      )}
+      {loading && <LoadingModal loading={loading} />}
     </>
   );
 };

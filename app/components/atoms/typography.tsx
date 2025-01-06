@@ -2,11 +2,11 @@ import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 const typographyVariants = {
-  h1: "text-[28px]",
-  h2: "text-[24px]",
-  h3: "text-[20px]",
-  h4: "text-[16px]",
-  p: "text-[18px]",
+  h1: "text-[20px]",
+  h2: "text-[18px]",
+  h3: "text-[16px]",
+  h4: "text-[14px]",
+  p: "text-[16px]",
 };
 
 const textWeights = {
