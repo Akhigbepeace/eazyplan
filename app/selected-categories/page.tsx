@@ -82,7 +82,8 @@ const SelectedCategories = () => {
             opacity="md"
             spacing="text-center mb-6"
           >
-            Kindly select TWO goals you'd like to achieve under each category
+            Kindly select TWO goals you&apos;d like to achieve under each
+            category
           </Typography>
           <div className="space-y-4">
             {categories.map((category, index) => {

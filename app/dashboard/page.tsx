@@ -8,7 +8,7 @@ const Dashboard = () => {
         <h1 className="text-2xl font-bold text-gray-800">
           Welcome Back, [User Name]!
         </h1>
-        <p className="text-gray-600">Here’s your dashboard overview.</p>
+        <p className="text-gray-600">Here&apos;s your dashboard overview.</p>
       </header>
 
       <main className="flex-grow px-6 py-4">
@@ -43,7 +43,7 @@ const Dashboard = () => {
             <div className="bg-white shadow rounded-lg p-4 flex justify-between items-center">
               <div>
                 <h3 className="text-lg font-semibold text-gray-800">
-                  Completed Task: "Plan Weekly Budget"
+                  Completed Task: &apos;Plan Weekly Budget&apos;
                 </h3>
                 <p className="text-sm text-gray-600">Yesterday at 3:00 PM</p>
               </div>

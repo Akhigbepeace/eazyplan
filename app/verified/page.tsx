@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Verified = () => {
@@ -17,8 +18,8 @@ const Verified = () => {
           Email Verified! 🎉
         </h1>
         <p className="mt-4 text-gray-700">
-          Thank you for verifying your email address. You're now one step closer
-          to setting and achieving your goals!
+          Thank you for verifying your email address. You&apos;re now one step
+          closer to setting and achieving your goals!
         </p>
 
         <div className="mt-6">

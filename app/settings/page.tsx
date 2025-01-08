@@ -10,6 +10,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import MobileNav from "../components/layouts/mobile-nav";
+import Image from "next/image";
 
 const SettingsPage = () => {
   const [userData, setUserData] = useState({
@@ -29,12 +30,11 @@ const SettingsPage = () => {
   return (
     <>
       <div className="bg-gray-100 min-h-screen p-4 sm:p-6 md:p-8">
-        {/* User Information Section */}
         <section className="bg-white shadow-md rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">User Information</h2>
           <div className="flex items-center space-x-4 mb-4">
-            <img
-              src="https://via.placeholder.com/80" // Placeholder image
+            <Image
+              src="https://via.placeholder.com/80"
               alt="User"
               className="w-20 h-20 rounded-full"
             />
