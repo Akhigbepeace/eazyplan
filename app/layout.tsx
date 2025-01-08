@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Lato, Montserrat } from "next/font/google";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { Auth, connectAuthEmulator } from "firebase/auth";
 import clsx from "clsx";
 
 export const metadata: Metadata = {

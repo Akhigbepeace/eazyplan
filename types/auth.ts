@@ -1,14 +1,14 @@
 export type UserCredentials = {
   email: string;
   password: string;
-  phoneNumber: string;
-  confirmPassword: string;
+  confirmPassword?: string;
+  userName: string;
 };
 
 export const defaultUserCredentials: UserCredentials = {
+  userName: "",
   email: "",
   password: "",
-  phoneNumber: "",
   confirmPassword: "",
 };
 
